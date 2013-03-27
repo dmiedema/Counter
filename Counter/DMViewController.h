@@ -7,7 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Background.h"
+#import <CoreGraphics/CoreGraphics.h>
+#import <QuartzCore/QuartzCore.h>
 
 @interface DMViewController : UIViewController
+
+@property (nonatomic) NSNumber *currentCount;
+@property (nonatomic) NSNumber *currentWaiting;
+
+@property (nonatomic, strong) IBOutlet UILabel *placeInLineTextLabel;
+@property (nonatomic, strong) IBOutlet UILabel *waitingBehindTextLabel;
+
+@property (nonatomic, strong) IBOutlet UILabel *countdownLabel;
+@property (nonatomic, strong) IBOutlet UILabel *waitingBehindLabel;
+@property (nonatomic, strong) IBOutlet UIButton *restartButton;
 
 @end

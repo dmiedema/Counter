@@ -7,6 +7,7 @@
 //
 
 #import "DMAppDelegate.h"
+#import "DMViewController.h"
 
 @implementation DMAppDelegate
 
@@ -26,6 +27,9 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setInteger:(int)NSTimeIntervalSince1970 forKey:@"lastTime"];
+//    [defaults synchronize];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application

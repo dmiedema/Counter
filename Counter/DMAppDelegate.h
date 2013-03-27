@@ -12,4 +12,7 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+//@property (nonatomic) NSInteger lastTime;
+//@property (nonatomic) NSInteger lastCount;
+
 @end
