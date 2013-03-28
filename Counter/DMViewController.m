@@ -109,7 +109,7 @@ int waitingBehind;
         NSString *waitingText = [self.formatter stringFromNumber:[NSNumber numberWithInt:[[NSUserDefaults standardUserDefaults] integerForKey:@"waitingBehind"]]];
         [[self countdownLabel] setText:newText];
         [[self waitingBehindLabel] setText:waitingText];
-        int diff = abs((int) (NSTimeIntervalSince1970 - [[NSUserDefaults standardUserDefaults] integerForKey:@"lastTime"]) % 125);
+        int diff = abs((int) arc4random() % 125);
         NSLog(@"diff: %i", diff);
         currentCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCount"] - diff;
         currentCount = currentCount > 0 ? currentCount : 0;
