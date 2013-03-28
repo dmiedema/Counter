@@ -23,4 +23,6 @@
 @property (nonatomic, strong) IBOutlet UILabel *waitingBehindLabel;
 @property (nonatomic, strong) IBOutlet UIButton *restartButton;
 
+-(void) saveCurrentState;
+-(void) removeAllObservers;
 @end
