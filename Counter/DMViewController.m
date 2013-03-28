@@ -40,6 +40,15 @@ int waitingBehind;
 {
     [super viewDidLoad];
     NSLog(@"messages %@", countdownDoneMessages);
+    /* Notification Center Goodness */
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(saveCurrentState)
+                                                 name:UIApplicationDidEnterBackgroundNotification
+                                               object:[UIApplication sharedApplication]];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(removeAllObservers)
+                                                 name:UIApplicationWillTerminateNotification
+                                               object:[UIApplication sharedApplication]];
     /* Custom Button Stuff */
 //    self.onStateImage = [self imageForSelector:@selector(drawOnState)];
 //    self.offStateImage = [self imageForSelector:@selector(drawOffState)];
@@ -74,32 +83,17 @@ int waitingBehind;
     [self.formatter setGroupingSize:3];
     [self.formatter setAlwaysShowsDecimalSeparator:NO];
     [self.formatter setUsesGroupingSeparator:YES];
-
-    /* get User Defaults */
-//    self.defaults = [NSUserDefaults standardUserDefaults];
     
-    /* Load from User Defaults */
+    /* Load from User Defaults */    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastTime"] == nil)
+        newCountDown = YES;
     
-    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastTime"] == nil || [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCount"] < 1)
-        _lastTimeFromDefaults = 0;
-    
-//    NSLog(@"lastTime, %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"lastTime"]);
-//    NSLog(@"lastCount, %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"lastCount"]);
-//    NSLog(@"waitingBehind, %@", [[NSUserDefaults standardUserDefaults] valueForKey:@"waitingBehind"]);
-//    NSLog(@"_lastTimeFromDefaults, %i", _lastTimeFromDefaults);
-//    NSLog(@"_lastCountFromDefaults, %i", _lastCountFromDefaults);
-//    NSLog(@"_waitingBehind, %i", _waitingBehind);
-
-    /* Nothing was saved, Boo. Lets make something */
-    if (_lastTimeFromDefaults == 0 || _lastCountFromDefaults < 1) {
+    NSLog(@"new countdown: %i", newCountDown);
+    if (newCountDown) {
         currentCount = abs((int)arc4random() % (int)NSTimeIntervalSince1970);
         while (currentCount > 1000000) currentCount = abs((int)arc4random() % 1000000);
         waitingBehind = abs((int)arc4random() % 10000);
         newCountDown = YES;
-        [[NSUserDefaults standardUserDefaults] setInteger:currentCount forKey:@"lastCount"];
-        [[NSUserDefaults standardUserDefaults] setInteger:waitingBehind forKey:@"waitingBehind"];
-        [[NSUserDefaults standardUserDefaults] setInteger:NSTimeIntervalSince1970 forKey:@"lastTime"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
     }
     /* Found something! Let's load it in. */
     if (!newCountDown) {
@@ -111,7 +105,7 @@ int waitingBehind;
         NSLog(@"diff: %i", diff);
         currentCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCount"] - diff;
         currentCount = currentCount > 0 ? currentCount : 0;
-        waitingBehind += diff/2;
+        waitingBehind =[[NSUserDefaults standardUserDefaults] integerForKey:@"waitingBehind"] + diff/2;
         newText = [self.formatter stringFromNumber:[NSNumber numberWithInt:currentCount]];
         waitingText = [self.formatter stringFromNumber:[NSNumber numberWithInt:waitingBehind]];
         [[self countdownLabel] setText:newText];
@@ -135,7 +129,7 @@ int waitingBehind;
     if (currentCount > 0) {
         [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     }
-    // Do any additional setup after loading the view, typically from a nib.
+    // We done.
 }
 
 - (void) runCountDown {
@@ -148,14 +142,23 @@ int waitingBehind;
     NSString *waitingText = [self.formatter stringFromNumber:[NSNumber numberWithInt:waitingBehind]];
     [[self countdownLabel] setText:newText];
     [[self waitingBehindLabel] setText:waitingText];
-    
+}
+
+-(void) saveCurrentState {
+    /* Remove all current values from defaults */
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastCount"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"waitingBehind"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastTime"];
     /* Write new values to defaults because I can. And I need to */
     [[NSUserDefaults standardUserDefaults] setInteger:currentCount forKey:@"lastCount"];
     [[NSUserDefaults standardUserDefaults] setInteger:waitingBehind forKey:@"waitingBehind"];
     [[NSUserDefaults standardUserDefaults] setInteger:NSTimeIntervalSince1970 forKey:@"lastTime"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
-
+-(void) removeAllObservers {
+    /* BAIL OUT. Not really, just remove myself as an observer so nothing blows up */
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)didReceiveMemoryWarning
 {
