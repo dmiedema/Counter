@@ -10,6 +10,10 @@
 #import "DMAppDelegate.h"
 #import "DMBackground.h"
 #include <stdlib.h>
+#import <QuartzCore/QuartzCore.h>
+#import <Accelerate/Accelerate.h>
+#import "RNBlurModalView.h"
+
 
 @interface DMViewController ()
 
@@ -23,10 +27,12 @@
 @property (nonatomic, strong) UIImage *onStateImage;
 @property (nonatomic, strong) UIImage *offStateImage;
 
+@property (nonatomic, strong) NSTimer *timer;
 //@property (nonatomic, strong) NSArray *countdownDoneMesages;
 
-#define countdownDoneMessages @[@"You Made It!", @"You're in!", @"Wasn't THIS worth the wait?", @"Anticlimactic, huh?", @"You're awesome! Now go again", @"That was practice, lets go for reals now", @"Best 2 out of 3", @"HYPE HYPE HYPE HYPE HYPE",]
+#define countdownDoneMessages @[@"You Made It!", @"You're in!", @"Wasn't THIS worth the wait?", @"Anticlimactic, huh?", @"You're awesome! Now go again", @"That was practice, lets go for real now", @"Best 2 out of 3", @"HYPE HYPE HYPE HYPE HYPE",]
 
+- (void) initializeView;
 @end
 
 @implementation DMViewController
@@ -38,8 +44,7 @@ int waitingBehind;
 /* Lets just do everything here, why not. */
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-    NSLog(@"messages %@", countdownDoneMessages);
+    [super viewDidLoad];    
     /* Notification Center Goodness */
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(saveCurrentState)
@@ -49,12 +54,6 @@ int waitingBehind;
                                              selector:@selector(removeAllObservers)
                                                  name:UIApplicationWillTerminateNotification
                                                object:[UIApplication sharedApplication]];
-    /* Custom Button Stuff */
-//    self.onStateImage = [self imageForSelector:@selector(drawOnState)];
-//    self.offStateImage = [self imageForSelector:@selector(drawOffState)];
-//    
-//    [self.restartButton setBackgroundImage:self.onStateImage forState:UIControlStateNormal];
-//    [self.restartButton setBackgroundImage:self.offStateImage forState:UIControlStateHighlighted];
     
     /* Background stuff */
     DMBackground *background = [[DMBackground alloc] init];
@@ -83,8 +82,17 @@ int waitingBehind;
     [self.formatter setGroupingSize:3];
     [self.formatter setAlwaysShowsDecimalSeparator:NO];
     [self.formatter setUsesGroupingSeparator:YES];
+
+    /* Initialize the view. And its in a method. Because its ugly long. */
+    [self initializeView];
+    // We done.
+}
+
+- (void) initializeView {
+    /* Hide the button */
+    [[self restartButton] setHidden:YES];
     
-    /* Load from User Defaults */    
+    /* Load from User Defaults */
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastTime"] == nil)
         newCountDown = YES;
     
@@ -113,31 +121,44 @@ int waitingBehind;
     }
     
     /* Setup timer */
-    NSTimer *timer = [NSTimer timerWithTimeInterval:abs((int)arc4random() % 3) + 1
+    
+    self.timer = [NSTimer timerWithTimeInterval:abs((int)arc4random() % 3) + 1
                                              target:self
                                            selector:@selector(runCountDown)
                                            userInfo:nil
-                                            repeats:YES];
+                                            repeats:(currentCount > 1)];
     
     /* Assign values to dynamic labels */
     NSString *newText = [self.formatter stringFromNumber:[NSNumber numberWithInt:currentCount]];
     NSString *waitingText = [self.formatter stringFromNumber:[NSNumber numberWithInt:waitingBehind]];
     [[self countdownLabel] setText:newText];
     [[self waitingBehindLabel] setText:waitingText];
-
+    
     /* Loop-dee-loop */
     if (currentCount > 0) {
-        [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+        [[NSRunLoop mainRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     }
-    // We done.
 }
 
 - (void) runCountDown {
     int decrease = abs((int)arc4random() % 2) + 1;
-    
     currentCount-=decrease;
-    if (abs((int)arc4random()) % 2 == 1) waitingBehind++;
     
+    if (currentCount <= 0) {
+        currentCount = 0;
+        NSString *message = [NSString string];
+        message = [countdownDoneMessages objectAtIndex:(arc4random() % [countdownDoneMessages count])];
+        RNBlurModalView *modal = [[RNBlurModalView alloc] initWithParentView: [self view]
+                                                                       title: @"Your countdown is done!"
+                                                                     message: message];
+        [modal show];
+        [self.timer invalidate];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[self restartButton] setHidden:NO]; //works
+        });
+    }
+    
+    if (abs((int)arc4random()) % 2 == 1) waitingBehind++;
     NSString *newText = [self.formatter stringFromNumber:[NSNumber numberWithInt:currentCount]];
     NSString *waitingText = [self.formatter stringFromNumber:[NSNumber numberWithInt:waitingBehind]];
     [[self countdownLabel] setText:newText];
@@ -159,6 +180,12 @@ int waitingBehind;
     /* BAIL OUT. Not really, just remove myself as an observer so nothing blows up */
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
+
+-(IBAction)restartButtonPressed:(UIButton *)sender {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"lastTime"];
+    [self initializeView];
+}
+
 
 - (void)didReceiveMemoryWarning
 {

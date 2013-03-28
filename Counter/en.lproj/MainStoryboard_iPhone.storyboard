@@ -47,19 +47,23 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tto-s3-ezC">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eoF-JN-KdH">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="115" id="OEh-pE-rFW"/>
-                                    <constraint firstAttribute="height" constant="32" id="q2H-vZ-Ujl"/>
+                                    <constraint firstAttribute="width" constant="215" id="PHN-Qf-aMg"/>
+                                    <constraint firstAttribute="height" constant="50" id="fhL-8L-drz"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="boldSystem" size="button"/>
+                                <state key="normal" image="BeginAgainNormal@2x.png" backgroundImage="transparent.png">
+                                    <color key="titleColor" red="0.19607843137254902" green="0.30980392156862746" blue="0.52156862745098043" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <state key="highlighted">
+                                <state key="disabled" image="transparent.png" backgroundImage="transparent.png"/>
+                                <state key="highlighted" image="BeginAgainHighlighted@2x.png" backgroundImage="transparent.png">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="restartButtonPressed:" destination="2" eventType="touchUpInside" id="ywn-uk-2Mh"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -70,19 +74,20 @@
                             <constraint firstAttribute="trailing" secondItem="1rA-eV-g4c" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Gaq-bn-jbf"/>
                             <constraint firstItem="5l5-G6-bGd" firstAttribute="top" secondItem="3" secondAttribute="top" constant="141" id="Kw6-c5-hlP"/>
                             <constraint firstAttribute="trailing" secondItem="j6g-Oa-Bro" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="M9c-dj-BEA"/>
-                            <constraint firstAttribute="bottom" secondItem="tto-s3-ezC" secondAttribute="bottom" constant="213" id="RbG-EV-z9E"/>
                             <constraint firstAttribute="bottom" secondItem="j6g-Oa-Bro" secondAttribute="bottom" constant="77" id="S9s-BG-eC7"/>
                             <constraint firstItem="j6g-Oa-Bro" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Zkz-qW-G5u"/>
                             <constraint firstItem="5l5-G6-bGd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Zsb-ej-3ol"/>
+                            <constraint firstAttribute="bottom" secondItem="eoF-JN-KdH" secondAttribute="bottom" constant="190" id="eLm-qh-iMK"/>
                             <constraint firstAttribute="bottom" secondItem="1rA-eV-g4c" secondAttribute="bottom" constant="30" id="mIC-eq-FTr"/>
                             <constraint firstAttribute="trailing" secondItem="oBO-fE-oEI" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="tpb-aP-xMa"/>
                             <constraint firstItem="1rA-eV-g4c" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="urn-LA-shS"/>
-                            <constraint firstItem="tto-s3-ezC" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="108" id="zl5-LA-1mI"/>
+                            <constraint firstItem="eoF-JN-KdH" firstAttribute="centerX" secondItem="j6g-Oa-Bro" secondAttribute="centerX" type="default" id="wlm-0J-ers"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="countdownLabel" destination="oBO-fE-oEI" id="lxb-Gp-MhU"/>
                         <outlet property="placeInLineTextLabel" destination="5l5-G6-bGd" id="4V4-Bq-eiC"/>
+                        <outlet property="restartButton" destination="eoF-JN-KdH" id="yKP-tI-nlG"/>
                         <outlet property="waitingBehindLabel" destination="1rA-eV-g4c" id="AK5-SH-68X"/>
                         <outlet property="waitingBehindTextLabel" destination="j6g-Oa-Bro" id="qLV-1M-bOj"/>
                     </connections>
@@ -91,10 +96,16 @@
             </objects>
         </scene>
     </scenes>
+    <resources>
+        <image name="BeginAgainHighlighted@2x.png" width="430" height="100"/>
+        <image name="BeginAgainNormal@2x.png" width="430" height="100"/>
+        <image name="transparent.png" width="640" height="960"/>
+    </resources>
     <classes>
         <class className="DMViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/DMViewController.h"/>
             <relationships>
+                <relationship kind="action" name="restartButtonPressed:" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="countdownLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="placeInLineTextLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="restartButton" candidateClass="UIButton"/>

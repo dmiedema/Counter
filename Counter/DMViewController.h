@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Background.h"
 #import <CoreGraphics/CoreGraphics.h>
 #import <QuartzCore/QuartzCore.h>
 
@@ -22,6 +21,8 @@
 @property (nonatomic, strong) IBOutlet UILabel *countdownLabel;
 @property (nonatomic, strong) IBOutlet UILabel *waitingBehindLabel;
 @property (nonatomic, strong) IBOutlet UIButton *restartButton;
+
+-(IBAction)restartButtonPressed:(UIButton*)sender;
 
 -(void) saveCurrentState;
 -(void) removeAllObservers;
