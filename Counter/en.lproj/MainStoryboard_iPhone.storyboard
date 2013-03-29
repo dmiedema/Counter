@@ -9,7 +9,7 @@
             <objects>
                 <viewController id="2" customClass="DMViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oBO-fE-oEI">
@@ -68,22 +68,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oBO-fE-oEI" firstAttribute="top" secondItem="3" secondAttribute="top" constant="184" id="1gq-J3-BYH"/>
                             <constraint firstAttribute="trailing" secondItem="5l5-G6-bGd" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="4dw-aR-DPj"/>
                             <constraint firstItem="oBO-fE-oEI" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="5ig-Gl-S2p"/>
                             <constraint firstAttribute="trailing" secondItem="1rA-eV-g4c" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Gaq-bn-jbf"/>
                             <constraint firstItem="5l5-G6-bGd" firstAttribute="top" secondItem="3" secondAttribute="top" constant="141" id="Kw6-c5-hlP"/>
                             <constraint firstAttribute="trailing" secondItem="j6g-Oa-Bro" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="M9c-dj-BEA"/>
                             <constraint firstAttribute="bottom" secondItem="j6g-Oa-Bro" secondAttribute="bottom" constant="77" id="S9s-BG-eC7"/>
+                            <constraint firstItem="eoF-JN-KdH" firstAttribute="centerX" secondItem="j6g-Oa-Bro" secondAttribute="centerX" type="default" id="Vhu-29-Qrs"/>
                             <constraint firstItem="j6g-Oa-Bro" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Zkz-qW-G5u"/>
                             <constraint firstItem="5l5-G6-bGd" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="Zsb-ej-3ol"/>
+                            <constraint firstItem="oBO-fE-oEI" firstAttribute="top" secondItem="3" secondAttribute="top" constant="184" id="cNC-z7-kxI"/>
                             <constraint firstAttribute="bottom" secondItem="eoF-JN-KdH" secondAttribute="bottom" constant="190" id="eLm-qh-iMK"/>
                             <constraint firstAttribute="bottom" secondItem="1rA-eV-g4c" secondAttribute="bottom" constant="30" id="mIC-eq-FTr"/>
                             <constraint firstAttribute="trailing" secondItem="oBO-fE-oEI" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="tpb-aP-xMa"/>
                             <constraint firstItem="1rA-eV-g4c" firstAttribute="leading" secondItem="3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="urn-LA-shS"/>
-                            <constraint firstItem="eoF-JN-KdH" firstAttribute="centerX" secondItem="j6g-Oa-Bro" secondAttribute="centerX" type="default" id="wlm-0J-ers"/>
                         </constraints>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="countdownLabel" destination="oBO-fE-oEI" id="lxb-Gp-MhU"/>
                         <outlet property="placeInLineTextLabel" destination="5l5-G6-bGd" id="4V4-Bq-eiC"/>

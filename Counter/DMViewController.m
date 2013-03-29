@@ -96,11 +96,10 @@ int waitingBehind;
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastTime"] == nil)
         newCountDown = YES;
     
-    NSLog(@"new countdown: %i", newCountDown);
     if (newCountDown) {
         currentCount = abs((int)arc4random() % (int)NSTimeIntervalSince1970);
-        while (currentCount > 1000000) currentCount = abs((int)arc4random() % 1000000);
-        waitingBehind = abs((int)arc4random() % 10000);
+        while (currentCount > 10891) currentCount = abs((int)arc4random() % 10891);
+        waitingBehind = abs((int)arc4random() % 10891);
         newCountDown = YES;
     }
     /* Found something! Let's load it in. */
@@ -109,8 +108,7 @@ int waitingBehind;
         NSString *waitingText = [self.formatter stringFromNumber:[NSNumber numberWithInt:[[NSUserDefaults standardUserDefaults] integerForKey:@"waitingBehind"]]];
         [[self countdownLabel] setText:newText];
         [[self waitingBehindLabel] setText:waitingText];
-        int diff = abs((int) arc4random() % 125);
-        NSLog(@"diff: %i", diff);
+        int diff = abs((int) arc4random() % 127);
         currentCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCount"] - diff;
         currentCount = currentCount > 0 ? currentCount : 0;
         waitingBehind =[[NSUserDefaults standardUserDefaults] integerForKey:@"waitingBehind"] + diff/2;
@@ -121,7 +119,6 @@ int waitingBehind;
     }
     
     /* Setup timer */
-    
     self.timer = [NSTimer timerWithTimeInterval:abs((int)arc4random() % 3) + 1
                                              target:self
                                            selector:@selector(runCountDown)
