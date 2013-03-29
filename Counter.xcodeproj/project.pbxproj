@@ -37,11 +37,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		C3C35AC11705524700C01E9C /* Untitled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Untitled@2x.png"; sourceTree = "<group>"; };
-		C3C35AC31705524C00C01E9C /* Untitled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Untitled.png; sourceTree = "<group>"; };
-		C3C35AC51705571800C01E9C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		C3C35AC71705571D00C01E9C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
-		C3C35AC91705572000C01E9C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		C3C35AC11705524700C01E9C /* Untitled@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Untitled@2x.png"; path = "../Untitled@2x.png"; sourceTree = "<group>"; };
+		C3C35AC31705524C00C01E9C /* Untitled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Untitled.png; path = ../Untitled.png; sourceTree = "<group>"; };
+		C3C35AC51705571800C01E9C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
+		C3C35AC71705571D00C01E9C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		C3C35AC91705572000C01E9C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		C3CF817A17029D8200E0F6AD /* Countdown.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Countdown.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CF817D17029D8200E0F6AD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		C3CF817F17029D8200E0F6AD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -92,11 +92,6 @@
 		C3CF817117029D8200E0F6AD = {
 			isa = PBXGroup;
 			children = (
-				C3C35AC91705572000C01E9C /* Default-568h@2x.png */,
-				C3C35AC71705571D00C01E9C /* Default@2x.png */,
-				C3C35AC51705571800C01E9C /* Default.png */,
-				C3C35AC31705524C00C01E9C /* Untitled.png */,
-				C3C35AC11705524700C01E9C /* Untitled@2x.png */,
 				C3CF818317029D8200E0F6AD /* Counter */,
 				C3CF817C17029D8200E0F6AD /* Frameworks */,
 				C3CF817B17029D8200E0F6AD /* Products */,
@@ -160,6 +155,11 @@
 		C3CF81CE1704119200E0F6AD /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				C3C35AC91705572000C01E9C /* Default-568h@2x.png */,
+				C3C35AC71705571D00C01E9C /* Default@2x.png */,
+				C3C35AC51705571800C01E9C /* Default.png */,
+				C3C35AC31705524C00C01E9C /* Untitled.png */,
+				C3C35AC11705524700C01E9C /* Untitled@2x.png */,
 				C3CF81CF1704129700E0F6AD /* transparent.png */,
 				C3CF81E11704165A00E0F6AD /* BeginAgainNormal.png */,
 				C3CF81E21704165A00E0F6AD /* BeginAgainNormal@2x.png */,
