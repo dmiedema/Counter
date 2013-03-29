@@ -95,7 +95,7 @@ int waitingBehind;
     /* Load from User Defaults */
     if ([[NSUserDefaults standardUserDefaults] objectForKey:@"lastTime"] == nil)
         newCountDown = YES;
-    
+    /* Nothing there. SO LETS MAKE IT! */
     if (newCountDown) {
         currentCount = abs((int)arc4random() % (int)NSTimeIntervalSince1970);
         while (currentCount > 10891) currentCount = abs((int)arc4random() % 10891);
@@ -110,7 +110,7 @@ int waitingBehind;
         [[self waitingBehindLabel] setText:waitingText];
         int diff = abs((int) arc4random() % 127);
         currentCount = [[NSUserDefaults standardUserDefaults] integerForKey:@"lastCount"] - diff;
-        currentCount = currentCount > 0 ? currentCount : 0;
+        currentCount = currentCount > 0 ? currentCount : 10;
         waitingBehind =[[NSUserDefaults standardUserDefaults] integerForKey:@"waitingBehind"] + diff/2;
         newText = [self.formatter stringFromNumber:[NSNumber numberWithInt:currentCount]];
         waitingText = [self.formatter stringFromNumber:[NSNumber numberWithInt:waitingBehind]];
